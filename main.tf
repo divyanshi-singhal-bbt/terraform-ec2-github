@@ -1,4 +1,3 @@
-# Triggering workflow after adding GitHub secrets
 provider "aws" {
   region     = var.aws_region
   access_key = var.aws_access_key
@@ -10,12 +9,6 @@ resource "aws_instance" "example" {
   instance_type = var.instance_type
 
   tags = {
-    Name = "Terraform-GitHub-EC2"
+    Name = "Manual-Terraform-EC2"
   }
 }
-
-variable "aws_region" {}
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
-variable "ami_id" {}
-variable "instance_type" {}
