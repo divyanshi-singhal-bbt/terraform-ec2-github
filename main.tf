@@ -4,12 +4,12 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
-# Get default VPC
+# Get Default VPC
 data "aws_vpc" "default" {
   default = true
 }
 
-# Get all subnets in the default VPC
+# Get subnets of Default VPC
 data "aws_subnets" "default_vpc" {
   filter {
     name   = "vpc-id"
@@ -17,10 +17,11 @@ data "aws_subnets" "default_vpc" {
   }
 }
 
+# EC2 Instance
 resource "aws_instance" "example" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  subnet_id     = data.aws_subnets.default_vpc.ids[0]  # pick first subnet
+  subnet_id     = data.aws_subnets.default_vpc.ids[0]
 
   tags = {
     Name = "Manual-Terraform-EC2"

@@ -1,4 +1,4 @@
-name: Terraform Deploy EC2 Manually
+name: Terraform EC2 Deployment
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Setup Terraform
@@ -32,4 +32,4 @@ jobs:
             -var "aws_access_key=${AWS_ACCESS_KEY}" \
             -var "aws_secret_key=${AWS_SECRET_KEY}" \
             -var "ami_id=${AMI_ID}" \
-            -var "instance_type=t2.micro"
+            -var "instance_type=t3.micro"
