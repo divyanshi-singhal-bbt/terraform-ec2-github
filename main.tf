@@ -9,15 +9,18 @@ data "aws_vpc" "default" {
   default = true
 }
 
-# Get subnets in the default VPC
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+# Get all subnets in the default VPC
+data "aws_subnets" "default_vpc" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
 resource "aws_instance" "example" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  subnet_id     = data.aws_subnet_ids.default.ids[0]  # pick first subnet
+  subnet_id     = data.aws_subnets.default_vpc.ids[0]  # pick first subnet
 
   tags = {
     Name = "Manual-Terraform-EC2"
